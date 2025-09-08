@@ -1,0 +1,6 @@
+@echo off
+echo Gera novo build e realiza upload para o docker hub...
+docker build --no-cache -t rafaelsantos440/oracle-xe-21:latest . && docker push rafaelsantos440/oracle-xe-21:latest
+
+echo Deleta conteiner/imagem local, baixa nova imagem e cria conteiner...
+docker rm -f oracle-xe-devqa && docker rmi rafaelsantos440/oracle-xe-21:latest && docker pull rafaelsantos440/oracle-xe-21:latest && docker run -d -p 1521:1521 --name oracle-xe-devqa rafaelsantos440/oracle-xe-21:latest
