@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,10 +45,13 @@
             background-color: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             color: var(--primary-color);
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
@@ -59,7 +63,7 @@
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .code-block {
@@ -89,14 +93,16 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🐳 Oracle XE 21 - Ambiente de Desenvolvimento</h1>
 
-        <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 30px; margin-bottom: 30px;">
+        <div class="card"
+            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 30px; margin-bottom: 30px;">
             <h2 style="color: white; border-bottom: none;">🎮 Missão: Ambiente Dev em 30 Minutos! 🚀</h2>
             <p style="font-size: 1.2em; margin: 20px 0;">
-                Olá, Desenvolvedor(a) Destemido(a)! 
+                Olá, Desenvolvedor(a) Destemido(a)!
             </p>
             <p style="margin: 15px 0;">
                 Sua missão, caso aceite, é configurar um ambiente Oracle completo em tempo recorde!
@@ -109,14 +115,16 @@
                 </p>
             </div>
             <p style="font-style: italic; margin-top: 20px;">
-                "Prepare-se para uma jornada onde comandos Docker são suas armas, e um ambiente perfeito é seu destino!" 🎯
+                "Prepare-se para uma jornada onde comandos Docker são suas armas, e um ambiente perfeito é seu destino!"
+                🎯
             </p>
         </div>
-        
+
         <div class="card">
             <h2>✨ Bem-vindo!</h2>
-            <p>Este container Docker contém uma instalação do Oracle XE 21 com os dados do ambiente de desenvolvimento já configurados e prontos para uso!</p>
-            
+            <p>Este container Docker contém uma instalação do Oracle XE 21 com os dados do ambiente de desenvolvimento
+                já configurados e prontos para uso!</p>
+
             <p>Após a configuração bem-sucedida, o banco de dados contará com dois schemas:</p>
             <ul>
                 <li><strong>GFHOM:</strong> Contém todas as tabelas necessárias para utilizar a CAT83</li>
@@ -140,15 +148,17 @@
             <h2>🚀 Como usar</h2>
 
             <div class="alert">
-                <strong>⚠️ Importante:</strong> Todos os comandos devem ser executados no prompt de comando (CMD) do Windows.
+                <strong>⚠️ Importante:</strong> Todos os comandos devem ser executados no prompt de comando (CMD) do
+                Windows.
             </div>
 
             <h3>📥 1. Preparação (para usuários da versão anterior)</h3>
             <div class="alert" style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
-                <strong>⚠️ Atenção:</strong> Se você já tinha a versão anterior instalada, execute estes comandos primeiro:
-                    <div class="code-block">
-                        docker rm -f oracle-xe-devqa && docker rmi rafaelsantos440/oracle-xe-21
-                    </div>
+                <strong>⚠️ Atenção:</strong> Se você já tinha a versão anterior instalada, execute estes comandos
+                primeiro:
+                <div class="code-block">
+                    docker rm -f oracle-xe-devqa && docker rmi rafaelsantos440/oracle-xe-21
+                </div>
             </div>
 
             <h3>2. Download da imagem</h3>
@@ -161,24 +171,60 @@
                 docker run -d -p 1521:1521 --name oracle-xe-devqa rafaelsantos440/oracle-xe-21:latest
             </div>
 
-            <div class="alert">
-                <strong>Nota:</strong> Na primeira inicialização, o banco pode demorar alguns minutos para estar disponível, pois o script irá importar os dados automaticamente.
+
+            <div class="alert" style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
+                <strong>⚠️ Atenção:</strong> Antes de prosseguir, é obrigatório acompanhar o status do container pelo
+                log.<br>
+                Utilize o comando abaixo e só avance para a configuração do banco após confirmar que o Oracle está
+                pronto para conexões.
             </div>
 
-                <h3>🔍 Verificar status</h3>
-                <div class="code-block">docker logs -f oracle-xe-devqa</div>
-                <div class="alert" style="background-color: #fff3cd; border-color: #ffeeba; color: #856404;">
-                    <strong>Importante:</strong> Acompanhe o log do container e só prossiga para a configuração do banco após visualizar a mensagem de que o Oracle está pronto para conexões.<br>
-                    Isso garante que o banco foi inicializado corretamente e está pronto para uso.<br>
-                    <br>
-                    Durante a inicialização, observe no log as seguintes etapas:<br>
-                    <ul>
-                        <li>Inicialização do banco de dados</li>
-                        <li>Configuração do diretório para importação</li>
-                        <li>Progresso da importação dos schemas GFHOM e GF</li>
-                        <li>Confirmação de sucesso ou detalhes de qualquer erro</li>
-                    </ul>
-                </div>
+            <h3>🔍 Verificar status</h3>
+            <div class="code-block">docker logs -f oracle-xe-devqa</div>
+            <div class="alert" style="background-color: #fff3cd; border-color: #ffeeba; color: #856404;">
+                <strong>Importante:</strong> Acompanhe o log do container e só prossiga para a configuração do banco
+                após visualizar a mensagem de que o Oracle está pronto para conexões.<br>
+                Isso garante que o banco foi inicializado corretamente e está pronto para uso.<br>
+                <br>
+                Durante a inicialização, observe no log as seguintes etapas:<br>
+                <ul>
+                    <li>Inicialização do banco de dados</li>
+                    <li>Configuração do diretório para importação</li>
+                    <li>Progresso da importação dos schemas GFHOM e GF</li>
+                    <li>Confirmação de sucesso ou detalhes de qualquer erro</li>
+                </ul>
+            </div>
+
+            <h3>🔍 Verificando a importação</h3>
+            <div class="alert"
+                style="background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460; font-weight: bold;">
+                Para confirmar que os schemas <strong>GFHOM</strong> e <strong>GF</strong> foram importados
+                corretamente, você pode executar estas verificações:
+            </div>
+
+            <h4>Verificar usuários do PDB:</h4>
+            <div class="code-block">docker exec oracle-xe-devqa bash -c "echo 'ALTER SESSION SET CONTAINER = GFHOM;' >
+                /tmp/users.sql && echo 'SELECT username FROM all_users ORDER BY username;' >> /tmp/users.sql && sqlplus
+                -s '/ as sysdba' @/tmp/users.sql"</div>
+
+            <h4>Verificar tablespaces:</h4>
+            <div class="code-block">docker exec oracle-xe-devqa bash -c "echo 'ALTER SESSION SET CONTAINER = GFHOM;' >
+                /tmp/tbs.sql && echo 'SELECT tablespace_name, ROUND(bytes/1024/1024/1024, 2) as SIZE_GB FROM
+                dba_data_files;' >> /tmp/tbs.sql && sqlplus -s '/ as sysdba' @/tmp/tbs.sql"</div>
+
+            <h4>Verificar tabelas carregadas:</h4>
+            <div class="code-block">docker exec oracle-xe-devqa bash -c "echo 'ALTER SESSION SET CONTAINER = GFHOM;' >
+                /tmp/tables.sql && echo 'SET LINESIZE 120' >> /tmp/tables.sql && echo 'SET PAGESIZE 100' >>
+                /tmp/tables.sql && echo 'COLUMN owner FORMAT A20' >> /tmp/tables.sql && echo 'COLUMN tables_carregadas
+                FORMAT 999999' >> /tmp/tables.sql && echo \"SELECT owner, COUNT(*) AS tables_carregadas FROM all_tables
+                WHERE owner IN ('GFHOM', 'GF') GROUP BY owner;\" >> /tmp/tables.sql && sqlplus -s '/ as sysdba'
+                @/tmp/tables.sql"</div>
+
+            <div class="alert" style="background-color: #d4edda; border-color: #c3e6cb; color: #155724;">
+                <strong>✅ Sucesso:</strong> Se a importação foi bem-sucedida, você verá aproximadamente 2.824 tabelas no
+                schema GFHOM e os tablespaces TBS_DADOS_GFHOM (8GB) e TBS_INDICES_GFHOM (2GB) configurados corretamente.
+            </div>
+
         </div>
 
         <div class="card">
@@ -191,7 +237,7 @@
                         <li>Host: localhost</li>
                         <li>Porta: 1521</li>
                         <li>Service Name: GFHOM</li>
-                        <li>Usuário: devqa</li>
+                        <li>Usuário: gfhom</li>
                         <li>Senha: manager</li>
                         <li>Characterset: WE8MSWIN1252</li>
                     </ul>
@@ -207,11 +253,12 @@
             </div>
 
             <div class="alert">
-                <strong>💡 Dica:</strong> Inicie a conexão usando o usuário SYSTEM. Depois de confirmar que tudo está funcionando, você pode criar novas conexões com o usuário devqa.
+                <strong>💡 Dica:</strong> Inicie a conexão usando o usuário SYSTEM. Depois de confirmar que tudo está
+                funcionando, você pode criar novas conexões com o usuário devqa.
             </div>
 
             <h3>Strings de conexão</h3>
-            
+
             <h4>DBeaver e ferramentas similares:</h4>
             <ul>
                 <li>URL: //localhost:1521/GFHOM</li>
@@ -244,23 +291,9 @@
 
             <h3>Mudando a porta (opcional)</h3>
             <div class="code-block">
-docker run -d -p NOVA_PORTA:1521 --name oracle-xe-devqa rafaelsantos440/oracle-xe-21</div>
-            
-            <h3>🔍 Verificando a importação</h3>
-            <p>Para confirmar que os schemas GFHOM e GF foram importados corretamente, você pode executar estas verificações:</p>
-            
-            <h4>Verificar tabelas carregadas:</h4>
-            <div class="code-block">cmd /c 'docker exec oracle-xe-devqa bash -c "echo ''ALTER SESSION SET CONTAINER = GFHOM;'' > /tmp/tables.sql && echo ''SET LINESIZE 120'' >> /tmp/tables.sql && echo ''SET PAGESIZE 100'' >> /tmp/tables.sql && echo ''COLUMN owner FORMAT A20'' >> /tmp/tables.sql && echo ''COLUMN tables_carregadas FORMAT 999999'' >> /tmp/tables.sql && echo \"SELECT owner, COUNT(*) AS tables_carregadas FROM all_tables WHERE owner IN (''GFHOM'', ''GF'') GROUP BY owner;\" >> /tmp/tables.sql && sqlplus -s ''/ as sysdba'' @/tmp/tables.sql"'</div>
-            
-            <h4>Verificar usuários do PDB:</h4>
-            <div class="code-block">docker exec oracle-xe-devqa bash -c "echo 'ALTER SESSION SET CONTAINER = GFHOM;' > /tmp/users.sql && echo 'SELECT username FROM all_users ORDER BY username;' >> /tmp/users.sql && sqlplus -s '/ as sysdba' @/tmp/users.sql"</div>
-            
-            <h4>Verificar tablespaces:</h4>
-            <div class="code-block">docker exec oracle-xe-devqa bash -c "echo 'ALTER SESSION SET CONTAINER = GFHOM;' > /tmp/tbs.sql && echo 'SELECT tablespace_name, ROUND(bytes/1024/1024/1024, 2) as SIZE_GB FROM dba_data_files;' >> /tmp/tbs.sql && sqlplus -s '/ as sysdba' @/tmp/tbs.sql"</div>
-            
-            <div class="alert" style="background-color: #d4edda; border-color: #c3e6cb; color: #155724;">
-                <strong>✅ Sucesso:</strong> Se a importação foi bem-sucedida, você verá aproximadamente 2.824 tabelas no schema GFHOM e os tablespaces TBS_DADOS_GFHOM (8GB) e TBS_INDICES_GFHOM (2GB) configurados corretamente.
-            </div>
+                docker run -d -p NOVA_PORTA:1521 --name oracle-xe-devqa rafaelsantos440/oracle-xe-21</div>
+
+
         </div>
 
         <div class="card">
@@ -302,4 +335,5 @@ docker run -d -p NOVA_PORTA:1521 --name oracle-xe-devqa rafaelsantos440/oracle-x
         </div>
     </div>
 </body>
+
 </html>

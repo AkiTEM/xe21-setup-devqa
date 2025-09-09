@@ -37,7 +37,25 @@ EXIT;
 EOF
 
 echo ""
+echo "[2/4] Tablespaces criadas e diretórios verificados."
 echo "[3/4] Executando importação no PDB GFHOM..."
+
+# Checagem automática da tablespace antes da importação
+TS_CHECK_LOG="/tmp/ts_check.log"
+sqlplus -s / as sysdba <<EOF > "$TS_CHECK_LOG"
+ALTER SESSION SET CONTAINER = GFHOM;
+SELECT tablespace_name FROM dba_tablespaces WHERE tablespace_name = 'TBS_DADOS_GFHOM';
+EXIT;
+EOF
+
+grep -q TBS_DADOS_GFHOM "$TS_CHECK_LOG"
+if [ $? -ne 0 ]; then
+  echo "Erro: tablespace TBS_DADOS_GFHOM não foi criada. Veja detalhes abaixo:"
+  cat "$TS_CHECK_LOG"
+  echo "Corrija o erro acima antes de prosseguir com a importação."
+  exit 1
+fi
+
 echo "Esta etapa pode levar de 5 a 10 minutos dependendo do hardware."
 echo "É normal ver mensagens de compilação com warnings durante a importação."
 echo "Por favor, aguarde até que a importação seja concluída..."

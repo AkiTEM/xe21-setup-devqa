@@ -25,9 +25,18 @@ EOF
     sleep 10
 done
 
-# Aguardar mais um pouco para garantir que o PDB também está pronto
-echo "Aguardando mais 30 segundos para garantir que o PDB esteja pronto..."
-sleep 30
+
+# Aguardar o PDB GFHOM estar disponível e aberto
+echo "Aguardando o PDB GFHOM estar disponível e aberto..."
+while true; do
+    STATUS=$(echo "SELECT open_mode FROM v\$pdbs WHERE name = 'GFHOM';" | sqlplus -s / as sysdba | grep "READ WRITE" || true)
+    if [ ! -z "$STATUS" ]; then
+        echo "PDB GFHOM está aberto!"
+        break
+    fi
+    echo "PDB GFHOM ainda não está disponível. Aguardando 10 segundos..."
+    sleep 10
+done
 
 # Executar script de importação
 echo "Executando script de importação..."
