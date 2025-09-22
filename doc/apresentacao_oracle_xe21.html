@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle XE 21 - Setup DevQA - Apresentação</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .slide1 { background: linear-gradient(135deg, #f7931e 0%, #c3272b 100%); color: white; }
+        .slide2 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .slide3 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .slide4 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .slide5 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .slide6 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        
+        .container {
+            max-width: 1000px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .slide1 h2 { color: white; }
+        .slide6 h2 { color: white; }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.2);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .tech-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            min-width: 150px;
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .benefits-list {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .benefits-list li {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #f7931e;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: #f7931e;
+            transform: scale(1.3);
+        }
+
+        .step-list {
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step-list li {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-left: 4px solid #f7931e;
+        }
+
+        .code-block {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            text-align: left;
+            color: #fff;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating { animation: float 6s ease-in-out infinite; }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .container { padding: 30px; margin: 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .tech-stack { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Título Principal -->
+    <div class="slide slide1" id="slide1">
+        <div class="container">
+            <div class="floating">
+                <h1>🐳 Oracle XE 21</h1>
+            </div>
+            <h2>Ambiente de Desenvolvimento DevQA</h2>
+            <p class="subtitle">Setup completo em Docker com schemas GFHOM e GF pré-configurados</p>
+            <div style="margin-top: 40px;">
+                <img src="https://logos-world.net/wp-content/uploads/2020/09/Oracle-Logo.png" style="height: 60px; margin: 0 20px; filter: brightness(0) invert(1);">
+                <span style="font-size: 3rem; margin: 0 20px;">+</span>
+                <img src="https://cdn.worldvectorlogo.com/logos/docker.svg" style="height: 60px; margin: 0 20px; filter: brightness(0) invert(1);">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Problema e Solução -->
+    <div class="slide slide2" id="slide2">
+        <div class="container">
+            <h2>❌ Problema</h2>
+            <p class="subtitle">Configuração manual de ambientes Oracle é complexa e demorada</p>
+            <div style="margin: 40px 0; font-size: 4rem;">⬇️</div>
+            <h2>✅ Solução</h2>
+            <p class="subtitle">Container Docker com Oracle XE 21 e dados pré-configurados</p>
+            <div style="margin-top: 30px;">
+                <p>⏱️ <strong>De horas para minutos</strong></p>
+                <p>🎯 <strong>Ambiente Dev em 30 minutos</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Funcionalidades -->
+    <div class="slide slide3" id="slide3">
+        <div class="container">
+            <h2>🚀 Funcionalidades Principais</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🐳</div>
+                    <h3>Container Docker</h3>
+                    <p>Oracle XE 21 pré-configurado e pronto para uso</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Schemas Pré-carregados</h3>
+                    <p>GFHOM com 2.824 tabelas + GF para desenvolvimento</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Auto-configuração</h3>
+                    <p>Tablespaces e usuários criados automaticamente</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Setup Rápido</h3>
+                    <p>3 comandos e seu ambiente está pronto</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Verificação Automática</h3>
+                    <p>Scripts para validar importação</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Pronto para CAT83</h3>
+                    <p>Ambiente completo para desenvolvimento</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Como Usar -->
+    <div class="slide slide4" id="slide4">
+        <div class="container">
+            <h2>⚙️ Como Usar</h2>
+            <div class="step-list">
+                <li>
+                    <strong>1. Download da imagem</strong>
+                    <div class="code-block">docker pull rafaelsantos440/oracle-xe-21:latest</div>
+                </li>
+                <li>
+                    <strong>2. Executar container</strong>
+                    <div class="code-block">docker run -d -p 1521:1521 --name oracle-xe-devqa rafaelsantos440/oracle-xe-21:latest</div>
+                </li>
+                <li>
+                    <strong>3. Verificar logs</strong>
+                    <div class="code-block">docker logs -f oracle-xe-devqa</div>
+                </li>
+                <li>
+                    <strong>4. Conectar e usar!</strong>
+                    <p>Host: localhost | Porta: 1521 | Service: GFHOM</p>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Benefícios -->
+    <div class="slide slide5" id="slide5">
+        <div class="container">
+            <h2>✨ Benefícios</h2>
+            <ul class="benefits-list">
+                <li>🚀 <strong>Produtividade:</strong> Ambiente pronto em 30 minutos vs horas de configuração manual</li>
+                <li>🎯 <strong>Consistência:</strong> Ambiente idêntico para toda a equipe</li>
+                <li>⚡ <strong>Agilidade:</strong> Start/stop do ambiente em segundos</li>
+                <li>💰 <strong>Economia:</strong> Reduz tempo de setup em 90%</li>
+                <li>🔒 <strong>Isolamento:</strong> Container não afeta outras instalações</li>
+                <li>📱 <strong>Portabilidade:</strong> Funciona em qualquer máquina com Docker</li>
+                <li>🔄 <strong>Versionamento:</strong> Controle de versões do ambiente</li>
+                <li>📊 <strong>Dados Reais:</strong> 2.824 tabelas do GFHOM para testes completos</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 6: Call to Action -->
+    <div class="slide slide6" id="slide6">
+        <div class="container">
+            <div class="floating">
+                <h2>🎯 Pronto para Acelerar seu Desenvolvimento?</h2>
+            </div>
+            <p class="subtitle">Configure agora e veja a diferença imediata!</p>
+            <div style="margin: 40px 0;">
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">📧 Suporte: Consulte a documentação completa</p>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">🚀 Deploy: 3 comandos e está pronto</p>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">🔍 Verificação: Scripts automáticos inclusos</p>
+            </div>
+            <div style="margin: 30px 0; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+                <h3>Conexão:</h3>
+                <p>🖥️ Host: localhost:1521</p>
+                <p>🗂️ Service: GFHOM</p>
+                <p>👤 User: gfhom | Pass: manager</p>
+            </div>
+            <a href="#" class="cta-button">Começar Agora</a>
+            <div style="margin-top: 40px; font-size: 2rem;">
+                🏢 Thomson Reuters - DevQA Team
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegação -->
+    <div class="navigation">
+        <div class="nav-dot active" onclick="goToSlide(1)"></div>
+        <div class="nav-dot" onclick="goToSlide(2)"></div>
+        <div class="nav-dot" onclick="goToSlide(3)"></div>
+        <div class="nav-dot" onclick="goToSlide(4)"></div>
+        <div class="nav-dot" onclick="goToSlide(5)"></div>
+        <div class="nav-dot" onclick="goToSlide(6)"></div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        
+        function goToSlide(slideNumber) {
+            currentSlide = slideNumber;
+            document.getElementById(`slide${slideNumber}`).scrollIntoView({ behavior: 'smooth' });
+            updateNavigation();
+        }
+        
+        function updateNavigation() {
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentSlide);
+            });
+        }
+        
+        // Navegação por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if (currentSlide < 6) goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                if (currentSlide > 1) goToSlide(currentSlide - 1);
+            }
+        });
+        
+        // Detecta scroll para atualizar navegação
+        window.addEventListener('scroll', () => {
+            const slides = document.querySelectorAll('.slide');
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+            
+            slides.forEach((slide, index) => {
+                if (scrollPos >= slide.offsetTop && scrollPos < slide.offsetTop + slide.offsetHeight) {
+                    currentSlide = index + 1;
+                    updateNavigation();
+                }
+            });
+        });
+        
+        // Auto-play opcional (comentado)
+        /*
+        setInterval(() => {
+            if (currentSlide < 6) {
+                goToSlide(currentSlide + 1);
+            } else {
+                goToSlide(1);
+            }
+        }, 10000);
+        */
+    </script>
+</body>
+</html>
